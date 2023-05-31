@@ -34,14 +34,21 @@ class Ball(Gamesprite):
     def __init__(self, player_image, player_x, player_y,  size_x, size_y, player_speed = 0):
         Gamesprite.__init__(self, player_image, player_x, player_y,  size_x, size_y, player_speed = 10)
         self.life=5
-        self.speed_x = -2
-        self.speed_y = -3
+        self.speed_x = -5
+        self.speed_y = -7
     def update(self):
-        self.rect.x += ball.speed
-        self.rect.y +=ball.speed
-        is_catch = pygame.sprite.collide_rect(self,Rocketka)
-        if is_catch:
-            self.speed_x
+        self.rect.x += self.speed_x
+        self.rect.y +=self.speed_y
+        if self.rect.y <= 0 or self.rect.bottom >= H:
+            self.speed_y *= -1
+        is_catch1 = pygame.sprite.collide_rect(self,roketka1)
+        if is_catch1:
+            self.speed_x *= -1
+            self.rect.x += self.speed_x
+        is_catch2 = pygame.sprite.collide_rect(self, roketka2)
+        if is_catch2:
+            self.speed_x *= -1
+            self.rect.x += self.speed_x
 
 
     def draw(self, window):
@@ -83,8 +90,8 @@ def game():
 
 
 ball=Ball("ball1.png",W//2,H//2,60,60,10)
-roketka1=Rocketka("roketka1.png",800,350,200,200,10)
-roketka2=Rocketka("roketka2.png",50,350,200,200,10)
+roketka1=Rocketka("roketka1.png",800,350,120,120,10)
+roketka2=Rocketka("roketka2.png",50,350,120,120,10)
 
 while run:
     for event in pygame.event.get():
